@@ -25,7 +25,6 @@ export default new Vuex.Store({
       return fetch('https://dog.ceo/api/breeds/image/random/20')
         .then(res => res.json())
         .then(({ message }) => {
-          console.log(message);
           commit('setOriginal', message);
         })
         .then(() => {
