@@ -65,7 +65,6 @@ export default {
         }
         if (breed.breed[0] === nextBreed.breed[0]) {
           group = [...group, breed];
-          console.log(group);
           return acc;
         }
         const newAcc = [...acc, [...group, breed]];
