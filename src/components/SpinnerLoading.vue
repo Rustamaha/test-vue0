@@ -29,7 +29,7 @@ export default {
       }
       this.active1 = true;
       this.active3 = false;
-    }, 100);
+    }, 200);
   },
 };
 </script>

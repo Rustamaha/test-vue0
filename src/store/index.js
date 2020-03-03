@@ -1,16 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import url from 'url';
-const url = require('url');
+import url from 'url';
+import _ from 'lodash';
 
 Vue.use(Vuex);
 
-/* const breedObj = (link) => {
-  console.log(link);
+const makeBreeds = state => state.original.map((link) => {
   const { path } = url.parse(link);
   const breedName = path.split('/').slice(2, 3).join('');
-  return { path: link, breed: breedName };
-}; */
+  return { path: link, breed: breedName, id: _.uniqueId() };
+});
 
 export default new Vuex.Store({
   state: {
@@ -21,20 +20,17 @@ export default new Vuex.Store({
     favouriteBreeds: JSON.parse(window.localStorage.getItem('favouriteBreeds')) || [],
   },
   actions: {
-    fetchBreeds({ commit, state }) {
+    fetchBreeds({ dispatch, commit, state }) {
       return fetch('https://dog.ceo/api/breeds/image/random/20')
         .then(res => res.json())
         .then(({ message }) => {
           commit('setOriginal', message);
         })
         .then(() => {
-          const data = state.original.map((link) => {
-            const { path } = url.parse(link);
-            const breedName = path.split('/').slice(2, 3).join('');
-            return { path: link, breed: breedName };
-          });
+          const data = makeBreeds(state);
           commit('setBreeds', data);
-        });
+        })
+        .then(() => dispatch('setSortedBreeds'));
     },
     setSortedBreeds({ commit, state }, toggle) {
       commit('setSorted', toggle);
@@ -48,14 +44,10 @@ export default new Vuex.Store({
           }
           return 0;
         });
-        commit('setBreeds', breeds);
+        commit('setSortedBreeds', breeds);
       } else {
-        const data = state.original.map((link) => {
-          const { path } = url.parse(link);
-          const breedName = path.split('/').slice(2, 3).join('');
-          return { path: link, breed: breedName };
-        });
-        commit('setBreeds', data);
+        const data = makeBreeds(state);
+        commit('setSortedBreeds', data);
       }
     },
     setFavouriteBreed({ commit, state }, { breed, isSelected }) {
@@ -72,6 +64,9 @@ export default new Vuex.Store({
   mutations: {
     setOriginal(state, breeds) {
       state.original = [...state.original, ...breeds];
+    },
+    setSortedBreeds(state, breeds) {
+      state.breeds = [...breeds];
     },
     setBreeds(state, breeds) {
       state.breeds = [...state.breeds, ...breeds];

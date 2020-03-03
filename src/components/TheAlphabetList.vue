@@ -1,9 +1,9 @@
 <template>
   <div class='alphabet-list'>
-    <div>{{ firstLetter }}</div>
+    <div class='alphabet-list__letter'>{{ firstLetter }}</div>
     <ul class='alphabet-list__ul'>
       <li class='alphabet-list__li' v-for='breed in breeds'
-        v-on:click='handleClick(breed.breed, breed.path)' v-bind:key='breed.path'>
+        v-on:click='handleClick(breed.breed, breed.path)' v-bind:key='breed.id'>
         <router-link class='alphabet-list__link' :to='`/${breed.breed}`'>
           {{ breed.breed }}
         </router-link>
@@ -36,16 +36,18 @@ export default {
 .alphabet-list {
   display: flex;
   display: -webkit-flex;
-  flex-wrap: wrap;
   flex-wrap: -webkit-wrap;
+  flex-wrap: wrap;
   font-style: normal;
   font-weight: normal;
   font-size: 1.25rem;
   line-height: 1.4em;
   letter-spacing: 0.01em;
   color: $grey;
-  // align-items: flex-end;
-  // -webkit-align-items: flex-end;
+
+  &__letter {
+    margin: 0.75em 0.75em 0 0;
+  }
 
   &__ul {
     list-style: none;
@@ -53,6 +55,8 @@ export default {
     padding: 0;
     display: flex;
     display: -webkit-flex;
+    flex-wrap: -webkit-wrap;
+    flex-wrap: wrap;
   }
   &__li {
     padding: 4px 12px;
@@ -69,6 +73,26 @@ export default {
   &__link {
     color: $grey;
     text-decoration: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .alphabet-list {
+
+    &__li {
+      margin-right: 0.75em;
+      margin-top: 1.1em;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .alphabet-list {
+
+    &__li {
+      margin-right: 0.5em;
+      margin-top: 0.8em;
+    }
   }
 }
 </style>

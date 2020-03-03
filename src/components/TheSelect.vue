@@ -4,9 +4,9 @@
       <div v-on:click='handleClickSelect' class='select__select-block'>
         Породы<div class='select__arrow' v-bind:class='{ select__arrow_up: isSelected }'></div>
       </div>
-      <div class='select__breed' v-bind:class='{ select__breed_on: isBreedSelected }'>
-        <div class='select__breed-selected' v-bind:key='breedName.path'>
-          {{ breedName.name }}
+      <div class='select__breed' v-if='routeBreed'>
+        <div class='select__breed-selected'>
+          {{ breedName.breed }}
         </div>
       </div>
       <div class='select__toggle'
@@ -25,8 +25,8 @@
       </template>
       <template v-else>
         <ul class='select__ul'>
-          <li v-for='(breed, ind) in breeds' v-on:click='handleClick(breed.breed, breed.path)'
-            class='select__li'  v-bind:key='ind'>
+          <li v-for='breed in breeds' v-on:click='handleClick(breed.breed, breed.path)'
+            class='select__li'  v-bind:key='breed.id'>
             <router-link class='select__link' :to='`/${breed.breed}`'>
               {{ breed.breed }}
             </router-link>
@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       isSelected: false,
+      routeBreed: this.$route.name === 'breed',
     };
   },
   computed: {
@@ -234,7 +235,7 @@ export default {
   }
 
   &__name-list {
-    width: 7.74%;
+    width: 89px;
     padding: 4px 12px;
     border: 1px solid $blue;
     border-radius: 1.66em;
@@ -263,6 +264,26 @@ export default {
   &__link {
     color: $grey;
     text-decoration: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .select {
+
+    &__li {
+      margin-right: 0.75em;
+      margin-top: 1.1em;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .select {
+
+    &__li {
+      margin-right: 0.5em;
+      margin-top: 0.8em;
+    }
   }
 }
 </style>

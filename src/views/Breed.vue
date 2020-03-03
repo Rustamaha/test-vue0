@@ -2,7 +2,10 @@
   <div>
     <TheSelect />
     <div class='breed'>
-      <img :src='breed.path' class='breed__img' :alt='breed.name'>
+      <div class='breed__card'>
+        <div class='breed__name'>{{ breed.breed }}</div>
+        <img :src='breed.path' class='breed__img' :alt='breed.breed'>
+      </div>
     </div>
   </div>
 </template>
@@ -34,12 +37,36 @@ export default {
   letter-spacing: 0.01em;
   color: $white;
 
-  &__img {
-    // object-fit: cover;
+  &__name {
+    float: right;
+    position: relative;
+    right: 50px;
+    top: 300px;
+  }
+
+  &__card {
     width: 100%;
     height: 17.1em;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     background: linear-gradient(1.42deg, #000000 -15.62%, rgba(0, 0, 0, 0) 45.69%);
     border-radius: 8px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .breed {
+
+    &__card {
+
+      &__img {
+        height: auto;
+      }
+    }
   }
 }
 </style>

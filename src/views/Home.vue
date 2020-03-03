@@ -2,7 +2,7 @@
   <div>
     <TheSelect />
     <div class='home'>
-      <div class='home__breeds'>
+      <div class='home__breeds' v-if='firstBreed'>
         <CardInHome
           v-bind:breed='firstBreed'
           v-bind:isCardBig='true'
@@ -15,7 +15,9 @@
         </template>
       </div>
       <div class='home__footer' :class='{ home__footer_spinner: loading }'>
-        <SpinnerLoading v-if='loading' />
+        <div class='home__spinner-position'>
+          <SpinnerLoading  v-if='loading' />
+        </div>
         <TheScrollUp />
       </div>
     </div>
@@ -49,6 +51,9 @@ export default {
       return store.getters.getBreeds.slice(1);
     },
   },
+  created() {
+    store.dispatch('fetchBreeds');
+  },
   mounted() {
     this.scroll();
   },
@@ -57,7 +62,7 @@ export default {
       window.onscroll = () => {
         const bottomOfWindow = document.documentElement.scrollTop
         + window.innerHeight >= document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
+        if (bottomOfWindow && this.$route.name === 'home') {
           this.loading = true;
           store.dispatch('fetchBreeds')
             .then(() => {
@@ -104,6 +109,13 @@ export default {
     }
   }
 
+  &__spinner-position {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    flex-grow: 1;
+  }
+
   &__footer {
     padding-top: 2.23em;
     padding-bottom: 5.43em;
@@ -115,6 +127,37 @@ export default {
       justify-content: space-between;
       -webkit-align-items: center;
       align-items: center;
+      float: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .home {
+
+    &__card {
+
+      &_small {
+        width: 49%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 429px) {
+  .home {
+    padding-top: 1em;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .home {
+
+    &__card {
+
+      &_small {
+        width: 100%;
+      }
     }
   }
 }

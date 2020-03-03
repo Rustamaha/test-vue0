@@ -8,13 +8,9 @@
 </template>
 
 <script>
-import store from '@/store/index';
 
 export default {
   name: 'TheNavigation',
-  created() {
-    store.dispatch('fetchBreeds');
-  },
 };
 </script>
 

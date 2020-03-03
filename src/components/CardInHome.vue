@@ -76,4 +76,71 @@ export default {
     border-radius: 8px;
   }
 }
+
+@media only screen and (max-width: 1140px) {
+  .card {
+    font-size: 1.3rem;
+
+      &__name {
+        top: 200px;
+        right: 30px;
+
+        &_big {
+          top: 260px;
+        }
+      }
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .card {
+    font-size: 1rem;
+
+    &__heart {
+      width: 20px;
+      height: 20px;
+      top: 45px;
+      left: 15px;
+    }
+
+    &__name {
+      top: 170px;
+      right: 10px;
+
+      &_big {
+        top: 240px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .card {
+    font-size: 0.8rem;
+
+    &__heart {
+      top: 35px;
+      left: 10px;
+    }
+    &__name {
+      top: 150px;
+      right: 10px;
+
+      &_big {
+        top: 200px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .card {
+    font-size: 0.6rem;
+
+    &__name {
+      top: 120px;
+      right: 10px;
+    }
+  }
+}
 </style>

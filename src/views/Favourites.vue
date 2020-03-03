@@ -48,4 +48,34 @@ export default {
     height: 11.6em;
   }
 }
+
+@media only screen and (max-width: 900px) {
+  .favourites {
+    padding-top: 2em;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .favourites {
+
+    &__card {
+      width: 49%;
+    }
+  }
+}
+
+@media only screen and (max-width: 429px) {
+  .favourites {
+    padding-top: 1em;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .favourites {
+
+    &__card {
+      width: 100%;
+    }
+  }
+}
 </style>

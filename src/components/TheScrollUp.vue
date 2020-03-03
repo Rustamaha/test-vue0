@@ -45,7 +45,7 @@ export default {
     border-left: none;
     border-bottom: none;
     transform: rotate(-45deg);
-    left: 23px;
+    left: 22.5px;
     top: 16px;
   }
 }
