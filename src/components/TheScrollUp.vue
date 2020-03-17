@@ -15,7 +15,7 @@ export default {
   },
 };
 </script>
-<style lang='scss'>
+<style scoped lang='scss'>
 .scroll {
   width: 55px;
   height: 55px;

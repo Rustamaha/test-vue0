@@ -1,7 +1,7 @@
 <template>
   <div class='card'>
     <font-awesome-icon :icon='heartIcon' class='card__heart'
-      v-on:click='handleClick(breed, isSelected)' />
+      v-on:click='setIcon(breed, isSelected)' />
     <div class='card__name' v-bind:class='{ card__name_big: isCardBig }'>{{ breed.breed }}</div>
     <img class='card__img' :src='breed.path'  :alt='breed.breed'>
   </div>
@@ -29,7 +29,7 @@ export default {
     },
   },
   methods: {
-    handleClick(breed, isSelected) {
+    setIcon(breed, isSelected) {
       if (!isSelected) {
         this.isSelected = true;
       } else {

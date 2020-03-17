@@ -21,6 +21,7 @@
         <TheScrollUp />
       </div>
     </div>
+    <InfiniteScroll v-if='loading' />
   </div>
 </template>
 <script>
@@ -29,6 +30,7 @@ import CardInHome from '@/components/CardInHome.vue';
 import TheSelect from '@/components/TheSelect.vue';
 import TheScrollUp from '@/components/TheScrollUp.vue';
 import SpinnerLoading from '@/components/SpinnerLoading.vue';
+import InfiniteScroll from '@/components/InfiniteScroll.vue';
 
 export default {
   name: 'Home',
@@ -37,6 +39,7 @@ export default {
     TheSelect,
     TheScrollUp,
     SpinnerLoading,
+    InfiniteScroll,
   },
   data() {
     return {
@@ -51,25 +54,21 @@ export default {
       return store.getters.getBreeds.slice(1);
     },
   },
-  created() {
-    store.dispatch('fetchBreeds');
-  },
   mounted() {
     this.scroll();
   },
   methods: {
     scroll() {
-      window.onscroll = () => {
+      const scroll = () => {
         const bottomOfWindow = document.documentElement.scrollTop
-        + window.innerHeight >= document.documentElement.offsetHeight;
-        if (bottomOfWindow && this.$route.name === 'home') {
+          + window.innerHeight >= document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
           this.loading = true;
-          store.dispatch('fetchBreeds')
-            .then(() => {
-              this.loading = false;
-            });
+        } else {
+          this.loading = false;
         }
       };
+      window.addEventListener('scroll', scroll);
     },
   },
 };

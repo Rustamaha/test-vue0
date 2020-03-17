@@ -1,6 +1,6 @@
 <template>
   <div class='nav'>
-    <router-link  class='nav__logo' to='/'>пёсель</router-link>
+    <div v-on:click='resetBreed'><router-link  class='nav__logo' to='/'>пёсель</router-link></div>
     <router-link class='nav__favourites' to='/favourites'>
       Избранные пёсели <font-awesome-icon :icon="['far', 'heart']" class='nav__heart' />
     </router-link>
@@ -8,9 +8,18 @@
 </template>
 
 <script>
+import store from '@/store/index';
 
 export default {
   name: 'TheNavigation',
+  created() {
+    store.dispatch('fetchBreeds');
+  },
+  methods: {
+    resetBreed() {
+      store.commit('setBreed', {});
+    },
+  },
 };
 </script>
 
@@ -32,6 +41,9 @@ export default {
   -webkit-align-items: center;
   align-items: center;
 
+  &__red {
+    color: red;
+  }
   &__logo,
   &__favourites {
     text-decoration: none;

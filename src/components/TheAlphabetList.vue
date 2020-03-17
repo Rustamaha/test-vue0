@@ -3,7 +3,7 @@
     <div class='alphabet-list__letter'>{{ firstLetter }}</div>
     <ul class='alphabet-list__ul'>
       <li class='alphabet-list__li' v-for='breed in breeds'
-        v-on:click='handleClick(breed.breed, breed.path)' v-bind:key='breed.id'>
+        v-on:click='setBreed(breed.breed, breed.path)' v-bind:key='breed.id'>
         <router-link class='alphabet-list__link' :to='`/${breed.breed}`'>
           {{ breed.breed }}
         </router-link>
@@ -26,8 +26,8 @@ export default {
     },
   },
   methods: {
-    handleClick: (name, path) => {
-      store.commit('setBreed', { name, path });
+    setBreed(breed, path) {
+      store.commit('setBreed', { breed, path });
     },
   },
 };
@@ -36,8 +36,6 @@ export default {
 .alphabet-list {
   display: flex;
   display: -webkit-flex;
-  flex-wrap: -webkit-wrap;
-  flex-wrap: wrap;
   font-style: normal;
   font-weight: normal;
   font-size: 1.25rem;

@@ -30,7 +30,7 @@ export default new Vuex.Store({
           const data = makeBreeds(state);
           commit('setBreeds', data);
         })
-        .then(() => dispatch('setSortedBreeds'));
+        .then(() => dispatch('setSortedBreeds', state.isSorted));
     },
     setSortedBreeds({ commit, state }, toggle) {
       commit('setSorted', toggle);

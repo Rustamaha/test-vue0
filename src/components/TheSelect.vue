@@ -1,16 +1,16 @@
 <template>
   <div class='select'>
     <div class='select__title' v-bind:class='{ select__title_notspace: isBreedSelected }'>
-      <div v-on:click='handleClickSelect' class='select__select-block'>
+      <div v-on:click='setSelect' class='select__select-block'>
         Породы<div class='select__arrow' v-bind:class='{ select__arrow_up: isSelected }'></div>
       </div>
-      <div class='select__breed' v-if='routeBreed'>
+      <div class='select__breed' v-if='isBreedSelected'>
         <div class='select__breed-selected'>
           {{ breedName.breed }}
         </div>
       </div>
       <div class='select__toggle'
-        v-bind:class='{ select__toggle_off: isBreedSelected, select__toggle_on: isSelected }'>
+        v-bind:class='{ select__toggle_off: isBreedSelected }'>
         <TheToggle message='Сортировка по породе' />
       </div>
     </div>
@@ -25,7 +25,7 @@
       </template>
       <template v-else>
         <ul class='select__ul'>
-          <li v-for='breed in breeds' v-on:click='handleClick(breed.breed, breed.path)'
+          <li v-for='breed in breeds' v-on:click='setBreed(breed.breed, breed.path)'
             class='select__li'  v-bind:key='breed.id'>
             <router-link class='select__link' :to='`/${breed.breed}`'>
               {{ breed.breed }}
@@ -50,7 +50,6 @@ export default {
   data() {
     return {
       isSelected: false,
-      routeBreed: this.$route.name === 'breed',
     };
   },
   computed: {
@@ -84,10 +83,10 @@ export default {
     },
   },
   methods: {
-    handleClick(name, path) {
-      store.commit('setBreed', { name, path });
+    setBreed(breed, path) {
+      store.commit('setBreed', { breed, path });
     },
-    handleClickSelect() {
+    setSelect() {
       if (!this.isSelected) {
         this.isSelected = true;
       } else {
@@ -118,12 +117,7 @@ export default {
 
   &__breed {
     margin-left: 1.66em;
-    display: none;
     margin-right: auto;
-
-    &_on {
-      display: block;
-    }
   }
 
   &__breed-selected {
@@ -164,10 +158,6 @@ export default {
 
     &_off {
       display: none;
-    }
-
-    &_on {
-      display: block;
     }
   }
 
@@ -221,7 +211,6 @@ export default {
 
   &__list {
     width: 100%;
-    // height: 9em;
     font-size: 0.75rem;
     line-height: 1em;
     letter-spacing: 0.01em;
@@ -250,6 +239,7 @@ export default {
     display: -webkit-flex;
     flex-wrap: wrap;
     flex-wrap: -webkit-wrap;
+    width: 100%;
   }
 
   &__li {
