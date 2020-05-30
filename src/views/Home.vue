@@ -60,8 +60,8 @@ export default {
   methods: {
     scroll() {
       const scroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop
-          + window.innerHeight >= document.documentElement.offsetHeight;
+        const bottomOfWindow = (window.innerHeight + window.pageYOffset)
+          >= document.body.offsetHeight;
         if (bottomOfWindow) {
           this.loading = true;
         } else {
