@@ -55,20 +55,17 @@ export default {
     },
   },
   mounted() {
-    this.scroll();
+    window.addEventListener('scroll', this.scroll);
   },
   methods: {
     scroll() {
-      const scroll = () => {
-        const bottomOfWindow = (window.innerHeight + window.pageYOffset)
-          >= document.body.offsetHeight;
-        if (bottomOfWindow) {
-          this.loading = true;
-        } else {
-          this.loading = false;
-        }
-      };
-      window.addEventListener('scroll', scroll);
+      const bottomOfWindow = (window.innerHeight + window.pageYOffset)
+        >= document.documentElement.offsetHeight;
+      if (bottomOfWindow) {
+        this.loading = true;
+      } else {
+        this.loading = false;
+      }
     },
   },
 };

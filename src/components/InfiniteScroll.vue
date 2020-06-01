@@ -6,8 +6,13 @@ import store from '@/store/index';
 
 export default {
   name: 'InfiniteScroll',
+  props: {
+    bottom: Boolean,
+  },
   created() {
-    store.dispatch('fetchBreeds');
+    setTimeout(() => {
+      store.dispatch('fetchBreeds');
+    }, 500);
   },
 };
 </script>
